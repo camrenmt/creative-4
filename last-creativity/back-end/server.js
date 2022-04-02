@@ -37,10 +37,10 @@ const rankingSchema = new mongoose.Schema({
 });
 
 const Question = mongoose.model('question', questionSchema);
-const Rankinng = mongoose.model('ranking', rankingSchema);
+const Ranking = mongoose.model('ranking', rankingSchema);
 
 app.post('/api/question', async (req, res) => {
-  const question = new Item({
+  const question = new Question({
     question: req.body.question,
     answer: req.body.answer,
     contributor: req.body.contributor,
@@ -56,7 +56,7 @@ app.post('/api/question', async (req, res) => {
 });
 
 app.post('/api/ranking', async (req, res) => {
-    const ranking = new Item({
+    const ranking = new Ranking({
       name: req.body.name,
       time: req.body.time,
       date: req.body.date
@@ -80,9 +80,9 @@ app.get('/api/question', async (req, res) => {
   }
 });
 
-app.get('/api/ranking', async (req, res) => {
+app.get('/api/rankings', async (req, res) => {
     try {
-      let rankings = await Question.find();
+      let rankings = await Ranking.find();
       res.send(rankings);
     } catch (error) {
       console.log(error);
