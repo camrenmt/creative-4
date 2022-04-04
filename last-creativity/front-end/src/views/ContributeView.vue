@@ -72,11 +72,9 @@ export default {
       questions: [],
       count: 1,
       riddle: "",
-      answer: ""
+      answer: "",
+      name: ""
     }
-  },
-  props: {
-    name: String
   },
   created() {
     this.getQuestions();

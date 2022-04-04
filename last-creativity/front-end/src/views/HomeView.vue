@@ -81,7 +81,7 @@
       <nav v-if="gameComplete" >
         <router-link to="/">Home</router-link> |
         <router-link :name="name" to="/leaderboard">Rankings</router-link> | 
-        <router-link :name="name" to="/contribute">Contribute</router-link>
+        <router-link to="/contribute">Contribute</router-link>
       </nav>
       
       <GameOne class="mt-4" v-if="!gameone" v-bind:name="name" v-bind:gameone.sync="gameone"/>
