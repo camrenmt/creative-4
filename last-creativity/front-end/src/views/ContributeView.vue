@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-    <div class="container border-top" v-for="(question, index) in questions" :key="question.id">
+    <div class="container border-top mb-4" v-for="(question, index) in questions" :key="question.id">
       <div :class="{'light-blue': index % 2 !== 0 }" class="row p-2">
         <div class="d-flex col-1 align-items-center justify-content-center">
           <h5>{{question.contributor}}</h5>
