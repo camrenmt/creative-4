@@ -80,7 +80,7 @@
     <div v-if="found">
       <nav v-if="gameComplete" >
         <router-link to="/">Home</router-link> |
-        <router-link :name="name" to="/leaderboard">Rankings</router-link> | 
+        <router-link to="/leaderboard">Rankings</router-link> | 
         <router-link to="/contribute">Contribute</router-link>
       </nav>
       
