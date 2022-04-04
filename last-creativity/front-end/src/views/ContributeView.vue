@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="about" style="margin-bottom:18vh">
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/leaderboard">Rankings</router-link> | 
