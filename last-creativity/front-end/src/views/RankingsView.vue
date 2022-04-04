@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="container border-top" v-for="(ranking, index) in sortRankings()" :key="ranking.id">
+      <div class="container border-top" v-for="(ranking, index) in rankings" :key="ranking.id">
         <div :class="{'light-blue': index % 2 !== 0 }" class="row p-2">
           <div class="d-flex col-1 align-items-center justify-content-center">
             <h3>{{index + 1}}</h3>
@@ -61,7 +61,9 @@ export default {
     async getRankings() {
       try {
         let response = await axios.get("/api/rankings");
-        this.rankings = response.data;
+        this.rankings = response.data.sort( function(a, b) {
+          return a.time - b.time
+        });
         return true;
       } catch (error) {
         console.log(error);
@@ -71,11 +73,6 @@ export default {
       let t = this.count;
       this.count += 1; 
       return t;
-    },
-    sortRankings() {
-      return this.rankings.sort( function(a, b) {
-        return a.time - b.time
-      });
     }
   }
 }
