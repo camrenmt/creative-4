@@ -27,7 +27,7 @@ const questionSchema = new mongoose.Schema({
   question: String,
   answer: String,
   contributor: String,
-  times_answered: String,
+  times_answered: Number,
 });
 
 const rankingSchema = new mongoose.Schema({
@@ -70,7 +70,7 @@ app.post('/api/ranking', async (req, res) => {
     }
   });
 
-app.get('/api/question', async (req, res) => {
+app.get('/api/questions', async (req, res) => {
   try {
     let questions = await Question.find();
     res.send(questions);
@@ -102,15 +102,15 @@ app.delete('/api/items/:id', async (req, res) => {
   }
 });
 
-app.put('/api/items/:id', async (req, res) => {
+app.put('/api/question/:id', async (req, res) => {
   try {
-    let item = await Item.findOne({
+    console.log("it worked");
+    let question = await Question.findOne({
       _id: req.params.id
     });
 
-    item.title = req.body.title;
-    item.description = req.body.description;
-    item.save();
+    question.times_answered = req.body.times_answered;
+    question.save();
     res.sendStatus(200);
   } catch (error) {
     console.log(error);

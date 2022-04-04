@@ -19,7 +19,7 @@
       <br><br>
     </p>
     <vue-typer
-        :text='["Hint... " + getRandomQuestion()]' :repeat='0' :shuffle='false' initial-action='typing' 
+        :text='["Hint... " + currentquestion.question]' :repeat='0' :shuffle='false' initial-action='typing' 
         :pre-type-delay='10000' :type-delay='70' 
         :pre-erase-delay='2000' :erase-delay='250' erase-style='select-all' 
         :erase-on-complete='false' caret-animation='blink' 
@@ -89,8 +89,9 @@ export default {
     },
     async getQuestions() {
       try {
-        let response = await axios.get("/api/question");
+        let response = await axios.get("/api/questions");
         this.questions = response.data;
+        this.getRandomQuestion();
         return true;
       } catch (error) {
         console.log(error);
@@ -99,12 +100,12 @@ export default {
     getRandomQuestion() {
       let i = Math.random() * this.questions.length;
       this.currentquestion = this.questions[Math.floor(i)];
-      return this.questions[Math.floor(i)].question;
     },
     checkAnswer() {
       this.isAnswered = true;
       if (this.answer.toLowerCase() === this.currentquestion.answer.toLowerCase()) {
         this.isCorrect = true;
+        this.updateQuestion();
         clearInterval(this.timer);
       } else {
         this.isCorrect = false;
@@ -113,6 +114,16 @@ export default {
     nextGame() {
       console.log("emitting");
       this.$emit("update:gameone", true);
+    },
+    async updateQuestion() {
+      try {
+        await axios.put("/api/question/" + this.currentquestion._id, {
+          times_answered: this.currentquestion.times_answered + 1,
+        });
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   computed: {
